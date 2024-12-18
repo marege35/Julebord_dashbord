@@ -18,7 +18,7 @@ By visualizing the data in a user-friendly format with interactive charts and ta
 this dashboard streamlines the organization process. 
 This will give you more time to enjoy the holiday festivities!
 
-Features: 
+## Features: 
 
 Dynamic Data Integration: 
 Fetches attendance and contribution details from a Google Sheet. I get real time updates.
@@ -27,7 +27,7 @@ Interactive Visualizations:
 Bar chart for attendance (Yes, No, Maybe). 
 Displays detailed contribution breakdown with names and item details.
 
-Responsive Design: 
+## Responsive Design: 
 Works well on both desktop and mobile devices.
 
 *Technologies Used HTML5 & CSS3: For layout and styling. 
@@ -36,7 +36,8 @@ Works well on both desktop and mobile devices.
 *Google Sheets: Used as the data source for RSVPs and contributions. 
 *Netlify: To host the site.
 
-How It Works Fetches data from a public Google Sheets URL (in CSV format). 
+## How It Works 
+Fetches data from a public Google Sheets URL (in CSV format). 
 Processes the data to: Count RSVPs for "Yes," "No," and "Maybe." 
 Parse contribution details for items like snacks, cakes, and fruit platters. 
 Dynamically updates tables and charts with processed data.
