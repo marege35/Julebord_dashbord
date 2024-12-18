@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Årets Julebord</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #3b5998;
+      text-align: center;
+    }
+    h2 {
+      margin-top: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input, select, textarea, button {
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+    button {
+      background-color: #3b5998;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #2a4370;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #3b5998;
+      color: white;
+    }
+    .link-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .link-container a {
+      color: #3b5998;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: 2px solid #3b5998;
+      border-radius: 5px;
+    }
+    .link-container a:hover {
+      background-color: #3b5998;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Velkommen til Julebord, Fredag 29. November kl. 18:00.</h1>
+  <p>Vennligst, merk følgende:</p>
+<ul>
+  <li>Fyll inn skjemaet nedenfor og trykk <strong>Send</strong>.</li>
+  <li>Vent til du ser meldingen: <em>"Takk for at du meldte deg på!"</em></li>
+  <li>Trykk <strong>Lukk</strong>. Din informasjon vises under <em>Påmeldinger</em>.</li>
+  <li>For personvern: Kun din informasjon vises. Dette forsvinner ved oppdatering av siden.</li>
+  <li>All data lagres av julekomiteen og slettes etter julebordet.</li>
+</ul>
+
+
+  <!-- Link to Julebord Visualization -->
+  <div class="link-container">
+    <a href="julebord.html" target="_blank">Se her hvem som kommer </a>
+  </div>
+
+  <!-- Form to submit RSVP -->
+  <form id="rsvp-form" method="POST" action="https://script.google.com/macros/s/AKfycbx-xNbN2L1VQeRx954wPK7qtu9pHa52gLQtgDzWrBbBMMuHcgYQsu6q9Mu2Exz9hxi4Ow
+exec">
+    <label for="name">Navn</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="kindergarten">Velg avdeling</label>
+    <select id="kindergarten" name="kindergarten" required>
+      <option value="">Velg...</option>
+      <option value="Skogen">Skogen</option>
+      <option value="Vannet">Vannet</option>
+    </select>
+
+    <label for="attendance">Kommer du? Om du ikke kommer, trykker du Nei og Send.</label>
+    <select id="attendance" name="attendance" required>
+      <option value="">Velg...</option>
+      <option value="Ja">Ja</option>
+      <option value="Nei">Nei</option>
+      <option value="Kanskje">Kanskje</option>
+    </select>
+
+    <label for="contribution">Hvis du har lyst, kan du gjerne ta med... </label>
+    <select id="contribution" name="contribution">
+      <option value="">Velg...</option>
+      <option value="Kake">Kake</option>
+      <option value="Snacks">Snacks</option>
+      <option value="Fruktsalat/Fruktfat">Fruktsalat eller Fruktfat</option>
+    </select>
+
+    <label for="details">Skriv ned hva du vil ta med (f.eks. ostekake, kjeks, potetgull, nøtter, fruktfat)</label>
+    <textarea id="details" name="details"></textarea>
+
+    <button type="submit">Send</button>
+  </form>
+
+  <h2>Påmeldinger</h2>
+  <table id="attendee-table">
+    <thead>
+      <tr>
+        <th>Navn</th>
+        <th>Barnehage</th>
+        <th>Kommer</th>
+        <th>Hva tar du med?</th>
+      </tr>
+    </thead>
+    <tbody id="attendee-list">
+      <!-- This will be populated with RSVPs -->
+    </tbody>
+  </table>
+
+  <script>
+    // Event listener for form submission
+    document.getElementById('rsvp-form').addEventListener('submit', function(event) {
+      event.preventDefault();  // Prevent form from reloading the page
+
+      // Gather form data
+      const name = document.getElementById('name').value;
+      const kindergarten = document.getElementById('kindergarten').value;
+      const attendance = document.getElementById('attendance').value;
+      const contribution = document.getElementById('contribution').value || 'Ingen';
+      const details = document.getElementById('details').value || '-';
+
+      // Send form data to Google Apps Script via fetch
+      fetch('https://script.google.com/macros/s/AKfycbx-xNbN2L1VQeRx954wPK7qtu9pHa52gLQtgDzWrBbBMMuHcgYQsu6q9Mu2Exz9hxi4Ow/exec', {
+        method: 'POST',
+        body: new URLSearchParams({
+          name: name,
+          kindergarten: kindergarten,
+          attendance: attendance,
+          contribution: contribution,
+          details: details
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle response from Google Apps Script
+        console.log('Success:', data);
+
+        // Add the new RSVP to the table
+        const tableBody = document.getElementById('attendee-list');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${name}</td>
+          <td>${kindergarten}</td>
+          <td>${attendance}</td>
+          <td>${contribution} ${details}</td>
+        `;
+        tableBody.appendChild(row);
+
+        // Optionally reset the form and show a success message
+        document.getElementById('rsvp-form').reset();
+        alert('Takk for at du meldte deg på!');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Noe gikk galt, prøv igjen.');
+      });
+    });
+  </script>
+</body>
+</html>
