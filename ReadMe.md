@@ -1,4 +1,4 @@
---- Julebord 2024 Attendance and Contributions Dashboard ---
+## --- Julebord 2024 Attendance and Contributions Dashboard ---
 
 This project provides an interactive dashboard to track RSVPs and contributions for Julebord 2024. 
 
